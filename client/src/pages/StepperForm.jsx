@@ -4,8 +4,14 @@ import { useParams, useNavigate, useLocation } from "react-router-dom";
 
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 
 //Validation
+const countWords = (value) =>
+  value
+    .split(/\s+/)
+    .filter((segment) => /[\p{L}]/u.test(segment)).length;
+
 const validateField = (field, rawValue) => {
   const value = (rawValue ?? "").toString().trim();
 
@@ -25,6 +31,15 @@ const validateField = (field, rawValue) => {
 
   if (rules.maxLength && value.length > rules.maxLength) {
     return `${field.label} must be at most ${rules.maxLength} characters`;
+  }
+
+  if (rules.minWords && countWords(value) < rules.minWords) {
+    return (
+      rules.message ||
+      `${field.label} must contain at least ${rules.minWords} word${
+        rules.minWords === 1 ? "" : "s"
+      }`
+    );
   }
 
   if (rules.pattern && !new RegExp(rules.pattern).test(value)) {
@@ -219,7 +234,9 @@ function StepperForm() {
       status: "draft",
       step: currentStep + 1,
     });
-    if (saved) alert("Draft Saved");
+    if (saved) {
+      navigate("/", { state: { toast: "Draft saved successfully" } });
+    }
   };
 
   const goToPrevious = () => {
@@ -250,7 +267,14 @@ function StepperForm() {
   };
 
   if (!formConfig) {
-    return <h2 className="loading-text">Loading...</h2>;
+    return (
+      <>
+        <Navbar onBrandClick={() => navigate("/")} />
+        <div className="dashboard-wrapper">
+          <Loader label="Loading form..." />
+        </div>
+      </>
+    );
   }
 
   const step = formConfig.steps[currentStep];

@@ -16,6 +16,7 @@ body {
   font-family: Inter, system-ui, sans-serif;
   background: #f9fafb;
   color: #111827;
+  overflow-x: hidden;
 }
 
 :root {
@@ -88,6 +89,115 @@ body {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 16px;
+}
+
+.loader__spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid #e5e7eb;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: loader-spin 0.75s linear infinite;
+}
+
+.loader__label {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.submissions-loading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.submissions-loading .loader {
+  padding: 24px 16px 8px;
+}
+
+@keyframes skeleton-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.skeleton-card {
+  pointer-events: none;
+}
+
+.skeleton-card__title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.skeleton-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.skeleton {
+  display: block;
+  border-radius: 8px;
+  background: #e5e7eb;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton--badge {
+  width: 72px;
+  height: 24px;
+  border-radius: 999px;
+}
+
+.skeleton--title {
+  width: min(240px, 60%);
+  height: 22px;
+}
+
+.skeleton--meta {
+  width: 180px;
+  height: 16px;
+}
+
+.skeleton--meta-short {
+  width: 140px;
+}
+
+.skeleton--progress {
+  width: 100%;
+  max-width: 420px;
+  height: 10px;
+  border-radius: 999px;
+}
+
+.skeleton--action {
+  width: 160px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
 }
 
 .navbar {
@@ -600,6 +710,11 @@ body {
   font-size: 1.0625rem;
   margin-bottom: 14px;
   line-height: 1.35;
+}
+
+.card-title--inline {
+  min-width: 0;
+  word-break: break-word;
 }
 
 .submission-card__meta-row {
@@ -1117,4 +1232,288 @@ body {
 
 ::-webkit-scrollbar-track {
   background: transparent;
+}
+//responsiveness
+@media (max-width: 768px) {
+  .page-container {
+    padding: 20px 16px 32px;
+  }
+
+  .dashboard-wrapper {
+    padding-top: 20px;
+    padding-bottom: 32px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .primary-btn {
+    width: 100%;
+  }
+
+  .navbar {
+    height: 64px;
+  }
+
+  .navbar-inner {
+    padding: 0 16px;
+  }
+
+  .navbar-brand {
+    font-size: 1rem;
+  }
+
+  .search-card__body {
+    padding: 16px;
+  }
+
+  .search-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .search-toolbar__controls {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-btn {
+    min-width: 0;
+    flex: 1;
+    font-size: 0.875rem;
+    padding: 0 12px;
+  }
+
+  .submission-card__content,
+  .submission-card--list .submission-card__content,
+  .submission-card--grid .submission-card__content {
+    padding: 16px;
+  }
+
+  .submission-card__list-layout {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  .submission-card__list-action {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .submission-card__list-action .action-btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .submission-card__title-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .submission-card__meta-row {
+    max-width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .submission-card__meta-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .card-meta {
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .submission-card__progress {
+    max-width: 100%;
+  }
+
+  .submission-card__grid-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .submission-card__grid-header .action-btn--compact {
+    min-width: 0;
+  }
+
+  .skeleton-card .submission-card__list-layout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .skeleton--action {
+    width: 100%;
+  }
+
+  .empty-state-card {
+    padding: 28px 20px;
+  }
+
+  .back-bar {
+    padding: 0 16px;
+  }
+
+  .form-container {
+    padding: 20px 16px;
+    border-radius: 16px;
+    margin: 0 16px;
+  }
+
+  .form-title {
+    font-size: 1.375rem;
+  }
+
+  .form-title-row {
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .form-subtitle {
+    margin-top: -12px;
+    margin-bottom: 20px;
+  }
+
+  .stepper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+
+  .stepper__row {
+    flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .stepper__connector {
+    flex: none;
+    width: 2px;
+    height: 20px;
+    margin: 4px 0 4px 15px;
+  }
+
+  .stepper__label {
+    white-space: normal;
+    line-height: 1.3;
+  }
+
+  .step-title {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .form-actions__right {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .form-actions .btn,
+  .form-actions__right .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal-overlay {
+    padding: 16px;
+    align-items: flex-end;
+  }
+
+  .modal {
+    padding: 24px 20px;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .modal__actions {
+    flex-direction: column-reverse;
+    gap: 10px;
+  }
+
+  .modal__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .modal__actions--split {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .modal__actions-right {
+    flex-direction: column-reverse;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .modal__actions-right .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .toast {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar-brand {
+    font-size: 0.875rem;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .navbar-actions {
+    gap: 8px;
+  }
+
+  .divider-vertical {
+    display: none;
+  }
+
+  .search-toolbar__controls {
+    gap: 8px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+
+  .action-btn {
+    font-size: 0.875rem;
+    padding: 0 16px;
+  }
 }

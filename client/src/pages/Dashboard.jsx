@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { api } from "../services/api";
 import Navbar from "../components/Navbar";
+import Loader from "../components/Loader";
 
 import CheckCircleOutlinedIcon from "@mui/icons-material/CheckCircleOutlined";
 import SearchIcon from "@mui/icons-material/Search";
@@ -177,8 +178,36 @@ function SubmissionGridCard({ submission, onNavigate }) {
   );
 }
 
+function SubmissionsListSkeleton() {
+  return (
+    <div className="submissions-list" aria-busy="true" aria-label="Loading submissions">
+      {[1, 2, 3].map((item) => (
+        <div key={item} className="submission-card submission-card--list skeleton-card">
+          <div className="submission-card__content">
+            <div className="submission-card__list-layout">
+              <div className="submission-card__list-body">
+                <div className="skeleton-card__title-row">
+                  <span className="skeleton skeleton--badge" />
+                  <span className="skeleton skeleton--title" />
+                </div>
+                <div className="skeleton-card__meta">
+                  <span className="skeleton skeleton--meta" />
+                  <span className="skeleton skeleton--meta skeleton--meta-short" />
+                </div>
+                <span className="skeleton skeleton--progress" />
+              </div>
+              <span className="skeleton skeleton--action" />
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Dashboard() {
   const [submissions, setSubmissions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [viewMode, setViewMode] = useState("list");
@@ -191,7 +220,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchSubmissions();
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     if (location.state?.toast) {
@@ -203,8 +232,13 @@ function Dashboard() {
   }, []);
 
   const fetchSubmissions = async () => {
-    const response = await api.get("/submissions");
-    setSubmissions(response.data);
+    setIsLoading(true);
+    try {
+      const response = await api.get("/submissions");
+      setSubmissions(response.data);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const openCreateModal = () => {
@@ -256,7 +290,7 @@ function Dashboard() {
             </div>
 
             <button className="primary-btn" onClick={openCreateModal}>
-              + New Submission
+              Start New Form
             </button>
           </div>
 
@@ -341,11 +375,16 @@ function Dashboard() {
             </div>
           </div>
 
-          {submissions.length === 0 ? (
+          {isLoading ? (
+            <div className="submissions-loading">
+              <Loader label="Loading submissions..." />
+              <SubmissionsListSkeleton />
+            </div>
+          ) : submissions.length === 0 ? (
             <div className="empty-state-card">
               <h2 className="empty-state-title">No submissions yet</h2>
               <p className="empty-state-text">
-                Create your first submission to get started.
+                Start your first wellness form to get started.
               </p>
             </div>
           ) : (
@@ -387,10 +426,11 @@ function Dashboard() {
       {createOpen && (
         <div className="modal-overlay" onClick={() => setCreateOpen(false)}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
-            <h2 className="modal__title">Create new submission</h2>
+            <h2 className="modal__title">Start a wellness form</h2>
             <p className="modal__subtitle">
-              Give this form a name so you can find it later. Leave it blank to
-              use a default name.
+              This starts a new submission using the standard wellness intake
+              template. Give it a name so you can find it later, or leave it
+              blank to use a default name.
             </p>
 
             <label className="form-label" htmlFor="new-submission-title">
@@ -418,7 +458,7 @@ function Dashboard() {
                 Cancel
               </button>
               <button className="btn btn--primary" onClick={createSubmission}>
-                Create
+                Start Form
               </button>
             </div>
           </div>
