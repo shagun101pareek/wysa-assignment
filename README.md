@@ -102,15 +102,14 @@ Returns the form configuration used to dynamically render the stepper form.
 ## Screenshots
 
 ### Dashboard
-
-
+image.png
 ### Dynamic Multi-Step Form
 
 
 ### Draft Save & Resume Flow
 
 
-### Completed Submission
+### Unsaved state change
 
 
 ---
