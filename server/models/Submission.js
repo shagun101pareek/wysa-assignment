@@ -7,6 +7,22 @@ const submissionSchema = new mongoose.Schema(
       ref: "FormConfig",
     },
 
+    formTitle: {
+      type: String,
+      required: true,
+    },
+
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+
+    totalSteps: {
+      type: Number,
+      required: true,
+    },
+
     status: {
       type: String,
       enum: ["draft", "completed"],
@@ -30,5 +46,9 @@ const submissionSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+submissionSchema.index({ updatedAt: -1 });
+submissionSchema.index({ formConfigId: 1 });
+submissionSchema.index({ status: 1, updatedAt: -1 });
 
 module.exports = mongoose.model("Submission", submissionSchema);

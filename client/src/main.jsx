@@ -6,16 +6,8 @@ import App from "./App";
 import "./index.css";
 import "./styles/global.css";
 
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-
-import { theme } from "./theme/theme";
-
-ReactDOM.createRoot(
-  document.getElementById("root")
-).render(
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
     <App />
-  </ThemeProvider>
+  </React.StrictMode>
 );

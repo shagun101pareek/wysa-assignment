@@ -11,7 +11,7 @@ mongoose
     await FormConfig.deleteMany({});
 
     await FormConfig.create({
-      title: "Wellness Intake Form",
+      title: `${submission.formTitle} #${count + 1}`,
 
       description:
         "Help us understand your wellness preferences",
@@ -39,7 +39,7 @@ mongoose
               label: "Gender",
               type: "select",
               required: true,
-              options: ["Male", "Female", "Other"],
+              options: ["Male", "Female", "Don't want to disclose"],
             },
           ],
         },
