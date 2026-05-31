@@ -11,7 +11,7 @@ mongoose
     await FormConfig.deleteMany({});
 
     await FormConfig.create({
-      title: `${submission.formTitle} #${count + 1}`,
+      title: "Wellness Intake Form",
 
       description:
         "Help us understand your wellness preferences",
@@ -27,12 +27,20 @@ mongoose
               label: "Full Name",
               type: "text",
               required: true,
+              validation: {
+                minWords: 1,
+                message: "Full name must contain at least one word",
+              },
             },
             {
               id: "age",
               label: "Age",
               type: "text",
               required: true,
+              validation: {
+                pattern: "^\\d+$",
+                message: "Age must be a number",
+              },
             },
             {
               id: "gender",
@@ -79,6 +87,10 @@ mongoose
               label: "Additional Notes",
               type: "text",
               required: false,
+              validation: {
+                minWords: 1,
+                message: "Notes must contain at least one word",
+              },
             },
           ],
         },
@@ -109,6 +121,10 @@ mongoose
               label: "Additional Details",
               type: "text",
               required: false,
+              validation: {
+                minWords: 1,
+                message: "Details must contain at least one word",
+              },
             },
           ],
         },

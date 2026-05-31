@@ -2,6 +2,11 @@
 // stays the source of truth and cannot be bypassed by direct requests.
 
 // Returns an error message for a single field, or "" when the value is valid.
+const countWords = (value) =>
+  value
+    .split(/\s+/)
+    .filter((segment) => /[\p{L}]/u.test(segment)).length;
+
 const validateField = (field, rawValue) => {
   const value = (rawValue ?? "").toString().trim();
 
@@ -21,6 +26,15 @@ const validateField = (field, rawValue) => {
 
   if (rules.maxLength && value.length > rules.maxLength) {
     return `${field.label} must be at most ${rules.maxLength} characters`;
+  }
+
+  if (rules.minWords && countWords(value) < rules.minWords) {
+    return (
+      rules.message ||
+      `${field.label} must contain at least ${rules.minWords} word${
+        rules.minWords === 1 ? "" : "s"
+      }`
+    );
   }
 
   if (rules.pattern && !new RegExp(rules.pattern).test(value)) {

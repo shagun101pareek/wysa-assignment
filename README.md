@@ -31,6 +31,8 @@ A dynamic multi-step form application built using React, Express, and MongoDB. U
 * User can save partially completed forms as drafts.
 * Implemented seamless draft recovery, which allows user to continue from where they left off.
 * Ensured draft data persists across browser refreshes and application restarts.
+* **Explicit save only:** progress is stored only when the user clicks **Save Draft** or chooses **Save as draft** in the leave confirmation modal. Navigating away without saving does not create or update a submission record.
+* If a user starts a new form and abandons it without saving, no database entry is created. This is intentional — unsaved changes are not persisted automatically.
 
 ---
 
@@ -119,6 +121,8 @@ Returns the form configuration used to dynamically render the stepper form.
 * Drafts can be resumed at any point using the saved submission ID.
 * Validation is enforced before progressing through required fields.
 * Progress tracking is calculated dynamically based on the current step and total configured steps.
+* **Start New Form** creates a new submission instance against the single backend-driven wellness intake template — not a custom form builder.
+* Text fields allow emojis (e.g. "Feeling great 😄") but require at least one word when a value is provided, so emoji-only input is rejected.
 
 ---
 
