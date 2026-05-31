@@ -1233,7 +1233,6 @@ body {
 ::-webkit-scrollbar-track {
   background: transparent;
 }
-//responsiveness
 @media (max-width: 768px) {
   .page-container {
     padding: 20px 16px 32px;
