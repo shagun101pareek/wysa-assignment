@@ -102,15 +102,13 @@ Returns the form configuration used to dynamically render the stepper form.
 ## Screenshots
 
 ### Dashboard
-image.png
+<img src="./screenshots/HomePage.png" width="900"/>
+
 ### Dynamic Multi-Step Form
-
-
-### Draft Save & Resume Flow
-
+<img src="./screenshots/FormBuilder.png" width="900"/>
 
 ### Unsaved state change
-
+<img src="./screenshots/Unsaved.png" width="900"/>
 
 ---
 
