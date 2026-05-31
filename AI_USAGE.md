@@ -22,7 +22,7 @@ I primarily used AI as a thinking partner while building the project. Instead of
 
 ## Representative Prompts Used
 
-### Project Planning
+### Project Planning (I have asked ChatGPT & Cursor itself to give me the prompts I have used throughout this project)
 
 -> "I have uploaded a document, I have to do this assignment as a part of a recruitment process. And, I want to use React (for frontend) and MongoDB + Node.js (for backend). Firstly, give me the gist on what arre we making?"
 
